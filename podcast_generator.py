@@ -18,7 +18,7 @@ except Exception:
     _PinyinStyle = None
     _has_pypinyin = False
 POLLINATIONS_API_KEY = os.getenv("POLLINATIONS_API_KEY", "")
-AI_MODEL = os.getenv("AI_MODEL") or "openai"
+AI_MODEL = os.getenv("AI_MODEL") or "openai/gpt-5.4-nano"
 
 BASE_DIR = Path(__file__).parent
 OUTPUT_DIR = BASE_DIR / "output"
@@ -832,7 +832,7 @@ Return EXACTLY {batch_size} turns as a JSON array (no markdown):
 [{{"speaker": "{current_host}", "chinese": "...", "romaji": "...", "english": "..."}},
  {{"speaker": "{next_host}", "chinese": "...", "romaji": "...", "english": "..."}}]"""
 
-    candidate_models = [AI_MODEL, "openai", "mistral", "qwen"]
+    candidate_models = [AI_MODEL, "openai/gpt-5.4-nano", "mistral", "qwen"]
     models_to_try = []
     for mod in candidate_models:
         if mod and mod not in models_to_try:
@@ -886,7 +886,7 @@ def _generate_topic():
     """Have the AI invent a brand-new random topic (unlimited variety).
     Returns '<topic - English>' or None on failure (caller falls back to TOPICS)."""
     seed = random.randint(100000, 999999)
-    candidate_models = [AI_MODEL, "openai", "mistral"]
+    candidate_models = [AI_MODEL, "openai/gpt-5.4-nano", "mistral"]
     for m in candidate_models:
         if not m:
             continue
